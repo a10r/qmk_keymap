@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "/usr/include",
+                "/usr/local/include",
+                "${workspaceFolder}/qmk_firmware/**"
+            ],
+            "defines": [],
+            "intelliSenseMode": "clang-x64",
+            "browse": {
+                "path": [
+                    "/usr/include",
+                    "/usr/local/include",
+                    "${workspaceFolder}/qmk_firmware/**",
+                    "${workspaceFolder}/qmk_firmware/quantum/**",
+                    "${workspaceFolder}/qmk_firmware/tmk_core/common/**",
+                    "${workspaceFolder}/qmk_firmware/quantum/audio/**",
+                    "${workspaceFolder}/qmk_firmware/quantum/process_keycode/**",
+                    "${workspaceFolder}/qmk_firmware/drivers/avr/**",
+                    "${workspaceFolder}/qmk_firmware/lib/chibios/**",
+                    "${workspaceFolder}/qmk_firmware/lib/lufa/**"
+                ],
+                "limitSymbolsToIncludedHeaders": false,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}

@@ -28,7 +28,6 @@ mkdir ../.build
 cp -r .build ..
 
 # clean submodule
-cd $QMK_DIR
 git clean -fdx
 git reset --hard
 cd ..
