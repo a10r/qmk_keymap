@@ -1,4 +1,6 @@
 #include QMK_KEYBOARD_H
+
+#include "config.h"
 #include "audio.h"
 #include "muse.h"
 #include "keymap_german.h"
@@ -145,3 +147,27 @@ bool music_mask_user(uint16_t keycode) {
 		return true;
 	}
 }
+
+void matrix_init_user(void) {
+	#ifdef AUDIO_ENABLE
+		startup_user();
+	#endif
+}
+
+#ifdef AUDIO_ENABLE
+float startup_sound[][2] = SONG(STARTUP_SOUND);
+float goodbye_sound[][2] = SONG(GOODBYE_SOUND);
+
+void startup_user()
+{
+	wait_ms(20); // gets rid of tick
+	PLAY_SONG(startup_sound);
+}
+
+void shutdown_user()
+{
+	PLAY_SONG(goodbye_sound);
+	wait_ms(150);
+	stop_all_notes();
+}
+#endif
