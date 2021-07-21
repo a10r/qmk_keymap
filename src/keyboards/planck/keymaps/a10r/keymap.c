@@ -14,7 +14,8 @@ enum planck_layers {
 };
 
 enum custom_keycodes {
-	CUSTOM = SAFE_RANGE
+	CUSTOM = SAFE_RANGE,
+	MUSIC
 };
 
 #define LOWER MO(DE_LOWER)
@@ -44,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,    DE_Z,    DE_U,    DE_I,    DE_O,    DE_P,    KC_BSPC,
 	KC_ESC,  DE_A,    DE_S,    DE_D,    DE_F,    DE_G,    DE_H,    DE_J,    DE_K,    DE_L,    DE_SCLN, DE_QUOT,
 	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,    DE_N,    DE_M,    DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
-	KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,   LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
@@ -83,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
- * |      |      |Debug |      |      |      |  RGB |RGBMOD| HUE+ | SAT+ |BRGTH+|  Ins |
+ * |      |      |Debug |      | MUSIC|      |  RGB |RGBMOD| HUE+ | SAT+ |BRGTH+|  Ins |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |Reset |      |MUSmod|Aud on|Audoff|      |      |      | HUE- | SAT- |BRGTH-|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -92,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |  <>  |             |  <>  |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
 [DE_ADJUST] = LAYOUT_planck_grid(
-	_______, _______, DEBUG,   _______, _______, _______, RGB_TOG, RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, KC_INS,
+	_______, _______, DEBUG,   _______, MUSIC,   _______, RGB_TOG, RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, KC_INS,
 	RESET,   _______, MU_MOD,  AU_ON,   AU_OFF,  _______, _______, _______,   RGB_HUD,  RGB_SAD, RGB_VAD, _______,
 	_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
@@ -104,9 +105,15 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	return update_tri_layer_state(state, DE_LOWER, DE_RAISE, DE_ADJUST);
 }
 
+__attribute__((weak)) void play_next_song(void);
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
-		return false;
+	case MUSIC:
+		if (record->event.pressed) {
+			play_next_song();
+		}
+		return true;
 	}
 	return true;
 }
@@ -157,6 +164,24 @@ void matrix_init_user(void) {
 #ifdef AUDIO_ENABLE
 float startup_sound[][2] = SONG(STARTUP_SOUND);
 float goodbye_sound[][2] = SONG(GOODBYE_SOUND);
+
+float coin[][2] = SONG(COIN_SOUND);
+float zelda_puzzle[][2] = SONG(ZELDA_PUZZLE);
+float ff_prelude[][2] = SONG(FF_PRELUDE);
+float renai_circulation[][2] = SONG(RENAI_CIRCULATION);
+float platinum_disco[][2] = SONG(PLATINUM_DISCO);
+
+void play_next_song(void) {
+	static int song_index = 0;
+	switch (song_index++) {
+		case 0: PLAY_SONG(coin); break;
+		case 1: PLAY_SONG(zelda_puzzle); break;
+		case 2: PLAY_SONG(ff_prelude); break;
+		case 3: PLAY_SONG(renai_circulation); break;
+		case 4: PLAY_SONG(platinum_disco); break;
+		default: song_index = 0;
+	}
+};
 
 void startup_user()
 {
