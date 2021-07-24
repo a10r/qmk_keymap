@@ -12,7 +12,9 @@ enum planck_layers {
 	DE_RAISE,
 	ADJUST,
 	NUM,
-	NAV
+	NAV,
+	DE_GAME,
+	DE_GAME_LOWER
 };
 
 enum custom_keycodes {
@@ -20,8 +22,11 @@ enum custom_keycodes {
 	MUSIC
 };
 
-#define LOWER MO(DE_LOWER)
-#define RAISE MO(DE_RAISE)
+#define DF_BASE DF(DE_BASE)
+#define LOWER   MO(DE_LOWER)
+#define RAISE   MO(DE_RAISE)
+#define DF_GAME DF(DE_GAME)
+#define LOWER_G MO(DE_GAME_LOWER)
 
 // Hold: Right shift; Tap: Enter
 #define ENT_RSF RSFT_T(KC_ENT)
@@ -91,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |Debug |      | MUSIC|      |  RGB |RGBMOD| HUE+ | SAT+ |BRGTH+|  Ins |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Reset |      |MUSmod|Aud on|Audoff|      |      |      | HUE- | SAT- |BRGTH-|      |
+ * |Reset |      |MUSmod|Aud on|Audoff| GAME |      |      | HUE- | SAT- |BRGTH-|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -99,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'*/
 [ADJUST] = LAYOUT_planck_grid(
 	_______, _______, DEBUG,   _______, MUSIC,   _______, RGB_TOG, RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, KC_INS,
-	RESET,   _______, MU_MOD,  AU_ON,   AU_OFF,  _______, _______, _______,   RGB_HUD,  RGB_SAD, RGB_VAD, _______,
+	RESET,   _______, MU_MOD,  AU_ON,   AU_OFF,  DF_GAME, _______, _______,   RGB_HUD,  RGB_SAD, RGB_VAD, _______,
 	_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 ),
@@ -135,6 +140,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, _______, DE_7,    DE_8,    DE_9,    _______,    _______,
 	_______, _______, _______, _______, _______, _______, _______, DE_4,    DE_5,    DE_6,    DE_0,    _______,
 	_______, _______, _______, _______, _______, _______, _______, DE_1,    DE_2,    DE_3,    _______, _______,
+	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* QWERTZ base layout for gaming (no weird home row layer shifts...)
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Z  |   U  |   I  |   O  |   P  | Bksp |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |EntRSf|
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl | Win  | Alt  | XXX  |Lower |    Space    | XXX  | Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------' */
+[DE_GAME] = LAYOUT_planck_grid(
+	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,    DE_Z,    DE_U,    DE_I,    DE_O,    DE_P,    KC_BSPC,
+	KC_ESC,  DE_A,    DE_S,    DE_D,    DE_F,    DE_G,    DE_H,    DE_J,    DE_K,    DE_L,    DE_SCLN, DE_QUOT,
+	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,    DE_N,    DE_M,    DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
+	KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, LOWER_G, KC_SPC,  KC_SPC,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+),
+
+/* Game Lower
+ * ,-----------------------------------------------------------------------------------.
+ * | BASE |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |  <>  |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------' */
+[DE_GAME_LOWER] = LAYOUT_planck_grid(
+	DF_BASE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+	_______, DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    _______,
+	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
@@ -221,6 +260,24 @@ void play_next_song(void) {
 		default: song_index = 0;
 	}
 };
+
+
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+	switch (get_highest_layer(state)) {
+	case DE_GAME:
+		PLAY_SONG(zelda_puzzle);
+		rgblight_enable_noeeprom();
+		rgblight_sethsv_noeeprom(140, 255, 255);
+		rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+		break;
+	default:
+		PLAY_SONG(startup_sound);
+		rgblight_sethsv_noeeprom(0, 85, 200);
+		rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
+		break;
+	}
+	return state;
+}
 
 void startup_user()
 {
