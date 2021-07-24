@@ -19,7 +19,10 @@ enum planck_layers {
 
 enum custom_keycodes {
 	CUSTOM = SAFE_RANGE,
-	MUSIC
+	MUSIC,
+	MARK_L, // mark line left of cursor
+	MARK_LN, // mark entire line
+	MARK_R // mark line right of cursor
 };
 
 #define DF_BASE DF(DE_BASE)
@@ -109,20 +112,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 
-/* Nav
+/* Nav layer
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      | Home |  Up  |  End | PgUp |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |  <>  |      |      | Left | Down | Right| PgDn |      |
+ * |      |      | Shift| Ctrl |  <>  |      |      | Left | Down | Right| PgDn |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |MARK_L|MARKLN|MARK_R|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |  <>  |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
 [NAV] = LAYOUT_planck_grid(
 	_______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______,
-	_______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
-	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+	_______, _______, KC_LSFT, KC_LCTL, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
+	_______, _______, _______, _______, _______, _______, _______, MARK_L,  MARK_LN, MARK_R,  _______, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
@@ -192,6 +195,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			play_next_song();
 		}
 		return true;
+	case MARK_L:
+		if (record->event.pressed) {
+			register_code(KC_LSFT);
+			register_code(KC_HOME);
+		} else {
+			unregister_code(KC_LSFT);
+			unregister_code(KC_HOME);
+		}
+		return false;
+	case MARK_LN:
+		if (record->event.pressed) {
+			register_code(KC_HOME);
+			unregister_code(KC_HOME);
+			register_code(KC_LSFT);
+			register_code(KC_END);
+		} else {
+			unregister_code(KC_LSFT);
+			unregister_code(KC_END);
+		}
+		return false;
+	case MARK_R:
+		if (record->event.pressed) {
+			register_code(KC_LSFT);
+			register_code(KC_END);
+		} else {
+			unregister_code(KC_LSFT);
+			unregister_code(KC_END);
+		}
+		return false;
 	}
 	return true;
 }
