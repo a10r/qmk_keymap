@@ -46,22 +46,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,    DE_Z,    DE_U,    DE_I,    DE_O,    DE_P,    KC_BSPC,
 	KC_ESC,  DE_A,    DE_S,    DE_D,    DE_F,    DE_G,    DE_H,    DE_J,    DE_K,    DE_L,    DE_SCLN, DE_QUOT,
 	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,    DE_N,    DE_M,    DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
-	KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX,   LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |   ä  |   ö  |   ü  |  NAV |   "  |   €  |   _  |   +  |   {  |   }  |  |   |
+ * |      |   ä  |   ö  |   ü  |  NAV |   "  |   €  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   Ä  |   Ö  |   Ü  |   ß  |      |      |   :  |   <  |   >  |   ?  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |  <>  |             |      | Home | PgUp | PgDn | End  |
  * `-----------------------------------------------------------------------------------' */
 [DE_LOWER] = LAYOUT_planck_grid(
-	DE_TILD, DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC, DE_AMPR,  DE_ASTR, DE_LPRN, DE_RPRN, KC_BSPC,
-	KC_DEL,  DE_ADIA, DE_ODIA, DE_UDIA, MO(NAV), DE_DQUO, DE_EURO, DE_UNDS,  DE_PLUS, DE_LCBR, DE_RCBR, DE_PIPE,
+	DE_TILD, DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_CIRC, DE_AMPR,  DE_ASTR, DE_LPRN, DE_RPRN, KC_DEL,
+	_______, DE_ADIA, DE_ODIA, DE_UDIA, MO(NAV), DE_DQUO, DE_EURO, DE_UNDS,  DE_PLUS, DE_LCBR, DE_RCBR, DE_PIPE,
 	_______, CAP_AE,  CAP_OE,  CAP_UE,  DE_SS,   _______, _______, DE_COLN,  DE_LABK, DE_RABK, DE_QUES, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______,  KC_HOME, KC_PGUP, KC_PGDN, KC_END
 ),
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
+ * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------' */
 [DE_RAISE] = LAYOUT_planck_grid(
 	DE_ACUT, DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    KC_BSPC,
-	KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   DE_MINS, DE_EQL,  DE_LBRC, DE_RBRC, DE_BSLS,
+	_______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   DE_MINS, DE_EQL,  DE_LBRC, DE_RBRC, DE_BSLS,
 	_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
@@ -104,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      | Home |  Up  |  End | PgUp |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      | Left | Down | Right| PgDn |      |
+ * |      |      |      |      |  <>  |      |      | Left | Down | Right| PgDn |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |  <>  |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |  <>  |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
@@ -196,7 +196,7 @@ void play_next_song(void) {
 		case 1: PLAY_SONG(zelda_puzzle); break;
 		case 2: PLAY_SONG(ff_prelude); break;
 		case 3: PLAY_SONG(renai_circulation); break;
-		case 4: PLAY_SONG(platinum_disco); break;
+		case 4: PLAY_SONG(platinum_disco);
 		default: song_index = 0;
 	}
 };
