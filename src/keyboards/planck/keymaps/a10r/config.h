@@ -6,5 +6,5 @@
 // MIDI notes can be sent when in Music mode is on
 #define MIDI_BASIC
 
-#define TAPPING_TERM 150
+#define TAPPING_TERM 170
 #define IGNORE_MOD_TAP_INTERRUPT
