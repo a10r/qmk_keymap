@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Z  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   S  | D/Num| F/Nav|   G  |   H  |   J  |   K  |   L  |   ;  |   "  |
+ * | Esc  |   A  |   S  | D/Num| F/Nav|   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |EntRSf|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------' */
 [DE_BASE] = LAYOUT_planck_grid(
 	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,    DE_T,    DE_Z,   DE_U, DE_I,    DE_O,    DE_P,    KC_BSPC,
-	KC_ESC,  DE_A,    DE_S,    D_NUM,   F_NAV,   DE_G,    DE_H,   DE_J, DE_K,    DE_L,    DE_SCLN, DE_DQUO,
+	KC_ESC,  DE_A,    DE_S,    D_NUM,   F_NAV,   DE_G,    DE_H,   DE_J, DE_K,    DE_L,    DE_SCLN, DE_QUOT,
 	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,    DE_B,    DE_N,   DE_M, DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
 	KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, SYMBOLS, KC_SPC,  KC_SPC, FUNC, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   -  |   {  |   }  |   &  |   *  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del |   ä  |   ö  |   ü  |  NAV |   '  |   =  |   (  |   )  |   _  |   ^  |  |   |
+ * |  Del |   ä  |   ö  |   ü  |  NAV |   "  |   =  |   (  |   )  |   _  |   ^  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |   Ä  |   Ö  |   Ü  |   ß  |   €  |   +  |   <  |   >  |   :  |   ?  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------' */
 [DE_SYMBOLS] = LAYOUT_planck_grid(
 	DE_TILD, DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_MINS, DE_LCBR, DE_RCBR, DE_AMPR, DE_ASTR, KC_BSPC,
-	KC_DEL,  DE_ADIA, DE_ODIA, DE_UDIA, MO(NAV), DE_QUOT, DE_EQL,  DE_LPRN, DE_RPRN, DE_UNDS, DE_CIRC, DE_PIPE,
+	KC_DEL,  DE_ADIA, DE_ODIA, DE_UDIA, MO(NAV), DE_DQUO, DE_EQL,  DE_LPRN, DE_RPRN, DE_UNDS, DE_CIRC, DE_PIPE,
 	_______, CAP_AE,  CAP_OE,  CAP_UE,  DE_SS,   DE_EURO, DE_PLUS, DE_LABK, DE_RABK, DE_COLN, DE_QUES, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END
 ),
