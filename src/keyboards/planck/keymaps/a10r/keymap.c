@@ -8,8 +8,9 @@
 // Layers with DE_ prefix require setting a german keyboard layout in the OS.
 enum planck_layers {
 	DE_BASE,
-	DE_L,
-	DE_R,
+	DE_L1,
+	DE_R1,
+	DE_R2,
 	ADJUST,
 	DE_NUM,
 	NAV,
@@ -30,6 +31,7 @@ enum custom_keycodes {
 // Hold: Right shift; Tap: Enter
 #define ENT_RSF RSFT_T(KC_ENT)
 
+#define ESC_NAV LT(NAV, KC_ESC)
 #define F_NAV LT(NAV, DE_F)
 #define D_NUM LT(DE_NUM, DE_D)
 
@@ -44,33 +46,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Z  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   S  | D/Num| F/Nav|   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
+ * |Esc/Nv|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |EntRSf|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Win  | Alt  | Shift|Symbol|    Space    | Func | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------' */
 [DE_BASE] = LAYOUT_planck_grid(
-	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,     DE_T,    DE_Z,   DE_U,     DE_I,    DE_O,    DE_P,    KC_BSPC,
-	KC_ESC,  DE_A,    DE_S,    D_NUM,   F_NAV,    DE_G,    DE_H,   DE_J,     DE_K,    DE_L,    DE_SCLN, DE_QUOT,
-	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,     DE_B,    DE_N,   DE_M,     DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
-	KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(DE_L), KC_SPC,  KC_SPC, MO(DE_R), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,      DE_T,    DE_Z,   DE_U,      DE_I,    DE_O,    DE_P,    KC_BSPC,
+	ESC_NAV, DE_A,    DE_S,    DE_D,    DE_F,      DE_G,    DE_H,   DE_J,      DE_K,    DE_L,    DE_SCLN, DE_QUOT,
+	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,      DE_B,    DE_N,   DE_M,      DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
+	KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(DE_L1), KC_SPC,  KC_SPC, MO(DE_R2), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Symbols
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   +  |   {  |   }  |   &  |   *  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  Del |   ä  |   ö  |   ü  |  NAV |   "  |   =  |   (  |   )  |   _  |   ^  |  |   |
+ * |  Del |   ä  |   ß  |   ö  |   ü  |   "  |   =  |   (  |   )  |   _  |   ^  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |   Ä  |   Ö  |   Ü  |   ß  |   €  |   -  |   <  |   >  |   :  |   ?  |      |
+ * |      |      |      |   <  |   >  |   €  |   -  |   [  |   ]  |   :  |   ?  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |  <>  |             |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------' */
-[DE_L] = LAYOUT_planck_grid(
+[DE_L1] = LAYOUT_planck_grid(
 	DE_TILD, DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_PLUS, DE_LCBR, DE_RCBR, DE_AMPR, DE_ASTR, KC_BSPC,
-	KC_DEL,  DE_ADIA, DE_ODIA, DE_UDIA, MO(NAV), DE_DQUO, DE_EQL,  DE_LPRN, DE_RPRN, DE_UNDS, DE_CIRC, DE_PIPE,
-	_______, CAP_AE,  CAP_OE,  CAP_UE,  DE_SS,   DE_EURO, DE_MINS, DE_LABK, DE_RABK, DE_COLN, DE_QUES, _______,
+	KC_DEL,  DE_ADIA, DE_SS,   DE_ODIA, DE_UDIA, DE_DQUO, DE_EQL,  DE_LPRN, DE_RPRN, DE_UNDS, DE_CIRC, DE_PIPE,
+	_______, _______, _______, DE_LABK, DE_RABK, DE_EURO, DE_MINS, DE_LBRC, DE_RBRC, DE_COLN, DE_QUES, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
@@ -82,29 +84,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      | PrtSc| Pause|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |  <>  | Next | Vol- | Vol+ | Play |
+ * |      |      |      |      |      |             |  <>  | Mute | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------' */
-[DE_R] = LAYOUT_planck_grid(
+[DE_R1] = LAYOUT_planck_grid(
 	DE_ACUT, DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    KC_BSPC,
 	_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   DE_LBRC, DE_RBRC, _______, _______, DE_BSLS,
 	_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_PSCR, KC_PAUS, _______,
-	_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
+	_______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
-/* Adjust (Symbols + Func)
+/* Adjust
  * ,-----------------------------------------------------------------------------------.
  * |      |      |Debug |      | MUSIC|      |  RGB |RGBMOD| HUE+ | SAT+ |BRGTH+|  Ins |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |Reset |      |MUSmod|Aud on|Audoff| GAME |      |      | HUE- | SAT- |BRGTH-|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf|      |      |      |
+ * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf| PrtSc| Pause|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |  <>  |             |  <>  |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
 [ADJUST] = LAYOUT_planck_grid(
 	_______, _______, DEBUG,   _______, MUSIC,   _______, RGB_TOG, RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, KC_INS,
 	RESET,   _______, MU_MOD,  AU_ON,   AU_OFF,  DF_GAME, _______, _______, RGB_HUD,  RGB_SAD, RGB_VAD, _______,
-	_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
+	_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, KC_PSCR, KC_PAUS, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 
@@ -112,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      | Home |  Up  |  End | PgUp |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  Alt | Shift| Ctrl |  <>  |      |      | Left | Down | Right| PgDn |      |
+ * |  <>  |  Alt | Shift| Ctrl |  <>  |      |      | Left | Down | Right| PgDn |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |MARK_L|MARKLN|MARK_R|      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -140,6 +142,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, DE_EQL,  DE_4,    DE_5,    DE_6,    DE_0,    _______,
 	_______, _______, _______, _______, _______, _______, DE_MINS, DE_1,    DE_2,    DE_3,    DE_SLSH, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* F-keys + Numpad layer
+ * ,-----------------------------------------------------------------------------------.
+ * |  ´   |  F1  |  F2  |  F3  |  F4  |      |   +  |   7  |   8  |   9  |   *  | Bspc |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |  F5  |  F6  |  F7  |  F8  |      |   =  |   4  |   5  |   6  |   0  |  \   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |  F9  |  F10 |  F11 |  F12 |      |   -  |   1  |   2  |   3  |   /  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |  <>  | Mute | Vol- | Vol+ | Play |
+ * `-----------------------------------------------------------------------------------'*/
+[DE_R2] = LAYOUT_planck_grid(
+	DE_ACUT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, DE_PLUS, DE_7,    DE_8,    DE_9,    DE_ASTR, KC_BSPC,
+	_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, DE_EQL,  DE_4,    DE_5,    DE_6,    DE_0,    DE_BSLS,
+	_______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, DE_MINS, DE_1,    DE_2,    DE_3,    DE_SLSH, _______,
+	_______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* QWERTZ base layout for gaming (no home row layer shifts and other weird stuff)
@@ -233,8 +252,9 @@ void matrix_scan_user(void) {
 
 bool music_mask_user(uint16_t keycode) {
 	switch (keycode) {
-	case FUNC:
-	case SYMBOLS:
+	case MO(DE_L):
+	case MO(DE_R):
+	case MO(DE_R2):
 		return false;
 	default:
 		return true;
