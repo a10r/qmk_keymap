@@ -1,3 +1,4 @@
 SRC += muse.c
 
+MIDI_ENABLE = yes
 DIP_SWITCH_ENABLE=no
