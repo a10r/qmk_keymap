@@ -19,6 +19,7 @@ enum planck_layers {
 	ADJUST,
 	DE_NUM,
 	NAV,
+	MOUSE,
 	DE_GAME,
 	DE_GAME_NUM
 };
@@ -56,13 +57,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |EntRSf|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Win  | Alt  | Shift|Symbol|    Space    | Func | Left | Down |  Up  |Right |
+ * | Ctrl | Win  | Alt  | MOUSE|Symbol|    Space    | Func | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------' */
 [DE_BASE] = LAYOUT_planck_grid(
-	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,      DE_T,    DE_Z,   DE_U,      DE_I,    DE_O,    DE_P,    KC_BSPC,
-	ESC_NAV, DE_A,    DE_S,    DE_D,    DE_F,      DE_G,    DE_H,   DE_J,      DE_K,    DE_L,    DE_SCLN, DE_QUOT,
-	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,      DE_B,    DE_N,   DE_M,      DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
-	KC_LCTL, KC_LGUI, KC_LALT, KC_LSFT, MO(DE_L1), KC_SPC,  KC_SPC, MO(DE_R2), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	KC_TAB,  DE_Q,    DE_W,    DE_E,      DE_R,      DE_T,    DE_Z,   DE_U,      DE_I,    DE_O,    DE_P,    KC_BSPC,
+	ESC_NAV, DE_A,    DE_S,    DE_D,      DE_F,      DE_G,    DE_H,   DE_J,      DE_K,    DE_L,    DE_SCLN, DE_QUOT,
+	KC_LSFT, DE_Y,    DE_X,    DE_C,      DE_V,      DE_B,    DE_N,   DE_M,      DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
+	KC_LCTL, KC_LGUI, KC_LALT, MO(MOUSE), MO(DE_L1), KC_SPC,  KC_SPC, MO(DE_R2), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Symbols
@@ -147,6 +148,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, DE_PLUS, DE_7,    DE_8,    DE_9,    DE_ASTR, _______,
 	_______, _______, _______, _______, _______, _______, DE_EQL,  DE_4,    DE_5,    DE_6,    DE_0,    _______,
 	_______, _______, _______, _______, _______, _______, DE_MINS, DE_1,    DE_2,    DE_3,    DE_SLSH, _______,
+	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+/* Mousekeys layer
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      | LClk | MUp  | RClk | WhlUp|      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      | MLeft| MDown|MRight| WhlDn|      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      | Spd0 | Spd1 | Spd2 |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |             |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'*/
+[MOUSE] = LAYOUT_planck_grid(
+	_______, _______, _______, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______,
+	_______, _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______,
+	_______, _______, _______, _______, _______, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
