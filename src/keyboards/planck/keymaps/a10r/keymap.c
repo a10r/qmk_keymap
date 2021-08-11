@@ -1,9 +1,14 @@
 #include QMK_KEYBOARD_H
 
+#include "version.h"
+#include "gitversion.h"
+
 #include "config.h"
 #include "audio.h"
 #include "muse.h"
+
 #include "keymap_german.h"
+#include "sendstring_german.h"
 
 // Layers with DE_ prefix require setting a german keyboard layout in the OS.
 enum planck_layers {
@@ -22,6 +27,7 @@ enum custom_keycodes {
 	CUSTOM = SAFE_RANGE,
 	MUSIC,
 	MARK_LN, // mark entire line
+	VERSION,
 };
 
 #define DF_BASE DF(DE_BASE)
@@ -95,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust
  * ,-----------------------------------------------------------------------------------.
- * |      |      |Debug |      | MUSIC|      |  RGB |RGBMOD| HUE+ | SAT+ |BRGTH+|  Ins |
+ * |      |      |Debug | Ver  | MUSIC|      |  RGB |RGBMOD| HUE+ | SAT+ |BRGTH+|  Ins |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |Reset |      |MUSmod|Aud on|Audoff| GAME |      |      | HUE- | SAT- |BRGTH-|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -104,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |  <>  |             |  <>  |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
 [ADJUST] = LAYOUT_planck_grid(
-	_______, _______, DEBUG,   _______, MUSIC,   _______, RGB_TOG, RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, KC_INS,
+	_______, _______, DEBUG,   VERSION, MUSIC,   _______, RGB_TOG, RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, KC_INS,
 	RESET,   _______, MU_MOD,  AU_ON,   AU_OFF,  DF_GAME, _______, _______, RGB_HUD,  RGB_SAD, RGB_VAD, _______,
 	_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, KC_PSCR, KC_PAUS, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
@@ -220,6 +226,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		} else {
 			unregister_code(KC_LSFT);
 			unregister_code(KC_END);
+		}
+		return false;
+	case VERSION:
+		if (record->event.pressed) {
+			SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ QMK " QMK_GITVERSION " (built on: " QMK_BUILDDATE ")");
 		}
 		return false;
 	}
