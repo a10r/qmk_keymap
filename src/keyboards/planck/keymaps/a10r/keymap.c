@@ -187,21 +187,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
-/* QWERTZ base layout for gaming (no home row layer shifts and other weird stuff)
+/* QWERTZ base layout for gaming
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Z  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |EntRSf|
+ * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |EntRSf|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Win  | Alt  | XXX  |Number|    Space    | XXX  | Left | Down |  Up  |Right |
+ * | Ctrl | Win  | Alt  | XXX  |Number|    Space    | XXX  |   /  | Left | Down |Right |
  * `-----------------------------------------------------------------------------------' */
 [DE_GAME] = LAYOUT_planck_grid(
 	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,  DE_T,   DE_Z,   DE_U,    DE_I,    DE_O,    DE_P,    KC_BSPC,
 	KC_ESC,  DE_A,    DE_S,    DE_D,    DE_F,  DE_G,   DE_H,   DE_J,    DE_K,    DE_L,    DE_SCLN, DE_QUOT,
-	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,  DE_B,   DE_N,   DE_M,    DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
-	KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, G_NUM, KC_SPC, KC_SPC, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,  DE_B,   DE_N,   DE_M,    DE_COMM, DE_DOT,  KC_UP,   ENT_RSF,
+	KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, G_NUM, KC_SPC, KC_SPC, XXXXXXX, DE_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Game: Numbers
