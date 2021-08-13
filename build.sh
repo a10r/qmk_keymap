@@ -23,7 +23,7 @@ cd $QMK_DIR
 
 # create another header file with the version; this should already be in version.h but it doesn't work for me for some reason...
 QMK_GITVERSION=$(git describe --abbrev=6 --tags)
-echo "#define QMK_GITVERSION \"$QMK_GITVERSION\"" >> keyboards/$KEYBOARD/keymaps/$KEYMAP/gitversion.h
+echo -e "#undef QMK_VERSION\n#define QMK_VERSION \"$QMK_GITVERSION\"" >> keyboards/$KEYBOARD/keymaps/$KEYMAP/version-override.h
 
 # build
 util/docker_build.sh $KEYBOARD_MAKE:$KEYMAP

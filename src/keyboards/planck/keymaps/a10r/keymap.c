@@ -1,7 +1,9 @@
 #include QMK_KEYBOARD_H
 
 #include "version.h"
-#include "gitversion.h"
+#if __has_include("version-override.h")
+	#include "version-override.h"
+#endif
 
 #include "config.h"
 #include "audio.h"
@@ -248,7 +250,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		return false;
 	case VERSION:
 		if (record->event.pressed) {
-			SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ QMK " QMK_GITVERSION " (built on: " QMK_BUILDDATE ")");
+			SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ QMK " QMK_VERSION " (built on: " QMK_BUILDDATE ")");
 		}
 		return false;
 	}
