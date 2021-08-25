@@ -17,9 +17,7 @@ enum planck_layers {
 	DE_BASE,
 	DE_L1,
 	DE_R1,
-	DE_R2,
 	ADJUST,
-	DE_NUM,
 	NAV,
 	MOUSE,
 	DE_GAME,
@@ -65,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB,  DE_Q,    DE_W,    DE_E,      DE_R,      DE_T,    DE_Z,   DE_U,      DE_I,    DE_O,    DE_P,    KC_BSPC,
 	ESC_NAV, DE_A,    DE_S,    DE_D,      DE_F,      DE_G,    DE_H,   DE_J,      DE_K,    DE_L,    DE_SCLN, DE_QUOT,
 	KC_LSFT, DE_Y,    DE_X,    DE_C,      DE_V,      DE_B,    DE_N,   DE_M,      DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
-	KC_LCTL, KC_LGUI, KC_LALT, MO(MOUSE), MO(DE_L1), KC_SPC,  KC_SPC, MO(DE_R2), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	KC_LCTL, KC_LGUI, KC_LALT, MO(MOUSE), MO(DE_L1), KC_SPC,  KC_SPC, MO(DE_R1), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Symbols
@@ -85,20 +83,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
-/* Func
+/* F-keys + Numpad layer
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
+ * |  ´   |  F1  |  F2  |  F3  |  F4  |      |   +  |   7  |   8  |   9  |   *  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   [  |   ]  |      |      |  \   |
+ * |      |  F5  |  F6  |  F7  |  F8  |      |   =  |   4  |   5  |   6  |   0  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      | PrtSc| Pause|      |
+ * |      |  F9  |  F10 |  F11 |  F12 |      |   -  |   1  |   2  |   3  |   /  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |  <>  | Mute | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------' */
+ * `-----------------------------------------------------------------------------------'*/
 [DE_R1] = LAYOUT_planck_grid(
-	DE_ACUT, DE_1,    DE_2,    DE_3,    DE_4,    DE_5,    DE_6,    DE_7,    DE_8,    DE_9,    DE_0,    KC_BSPC,
-	_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   DE_LBRC, DE_RBRC, _______, _______, DE_BSLS,
-	_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_PSCR, KC_PAUS, _______,
+	DE_ACUT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, DE_PLUS, DE_7,    DE_8,    DE_9,    DE_ASTR, KC_BSPC,
+	_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, DE_EQL,  DE_4,    DE_5,    DE_6,    DE_0,    DE_BSLS,
+	_______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, DE_MINS, DE_1,    DE_2,    DE_3,    DE_SLSH, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -136,23 +134,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, _______, _______,   _______, _______,  _______, _______
 ),
 
-/* Numpad layer
- * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |   +  |   7  |   8  |   9  |   *  |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |  <>  |      |      |   =  |   4  |   5  |   6  |   0  |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |   -  |   1  |   2  |   3  |   /  |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'*/
-[DE_NUM] = LAYOUT_planck_grid(
-	_______, _______, _______, _______, _______, _______, DE_PLUS, DE_7,    DE_8,    DE_9,    DE_ASTR, _______,
-	_______, _______, _______, _______, _______, _______, DE_EQL,  DE_4,    DE_5,    DE_6,    DE_0,    _______,
-	_______, _______, _______, _______, _______, _______, DE_MINS, DE_1,    DE_2,    DE_3,    DE_SLSH, _______,
-	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-),
-
 /* Mousekeys layer
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      | LClk | MUp  | RClk | WhlUp|      |
@@ -168,23 +149,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	_______, _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______,
 	_______, _______, _______, _______, _______, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-),
-
-/* F-keys + Numpad layer
- * ,-----------------------------------------------------------------------------------.
- * |  ´   |  F1  |  F2  |  F3  |  F4  |      |   +  |   7  |   8  |   9  |   *  | Bspc |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |      |   =  |   4  |   5  |   6  |   0  |  \   |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F9  |  F10 |  F11 |  F12 |      |   -  |   1  |   2  |   3  |   /  |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |  <>  | Mute | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'*/
-[DE_R2] = LAYOUT_planck_grid(
-	DE_ACUT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, DE_PLUS, DE_7,    DE_8,    DE_9,    DE_ASTR, KC_BSPC,
-	_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, DE_EQL,  DE_4,    DE_5,    DE_6,    DE_0,    DE_BSLS,
-	_______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, DE_MINS, DE_1,    DE_2,    DE_3,    DE_SLSH, _______,
-	_______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
 /* QWERTZ base layout for gaming
@@ -224,8 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-	state = update_tri_layer_state(state, DE_L1, DE_R1, ADJUST);
-	return update_tri_layer_state(state, DE_L1, DE_R2, ADJUST);
+	return update_tri_layer_state(state, DE_L1, DE_R1, ADJUST);
 }
 
 __attribute__((weak)) void play_next_song(void);
@@ -284,9 +247,8 @@ void matrix_scan_user(void) {
 
 bool music_mask_user(uint16_t keycode) {
 	switch (keycode) {
-	case MO(DE_L):
-	case MO(DE_R):
-	case MO(DE_R2):
+	case MO(DE_L1):
+	case MO(DE_R1):
 		return false;
 	default:
 		return true;
