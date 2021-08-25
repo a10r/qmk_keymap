@@ -31,21 +31,15 @@ enum custom_keycodes {
 	VERSION,
 };
 
+#define MO_L1   MO(DE_L1)
+#define MO_R1   MO(DE_R1)
+#define MO_MOUS MO(MOUSE)
+#define ESC_NAV LT(NAV, KC_ESC)
 #define DF_BASE DF(DE_BASE)
 #define DF_GAME DF(DE_GAME)
 #define G_NUM   MO(DE_GAME_NUM)
+#define SFTENT  RSFT_T(KC_ENT) // Hold: Right shift; Tap: Enter
 
-// Hold: Right shift; Tap: Enter
-#define ENT_RSF RSFT_T(KC_ENT)
-
-#define ESC_NAV LT(NAV, KC_ESC)
-#define F_NAV LT(NAV, DE_F)
-#define D_NUM LT(DE_NUM, DE_D)
-
-// Capital umlauts
-#define CAP_AE S(DE_ADIA)
-#define CAP_OE S(DE_ODIA)
-#define CAP_UE S(DE_UDIA)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -55,15 +49,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |Esc/Nv|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |EntRSf|
+ * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |SftEnt|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Win  | Alt  | MOUSE|Symbol|    Space    | Func | Left | Down |  Up  |Right |
+ * | Ctrl | Win  | Alt  | Mouse|Symbol|    Space    | F/Num| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------' */
 [DE_BASE] = LAYOUT_planck_grid(
-	KC_TAB,  DE_Q,    DE_W,    DE_E,      DE_R,      DE_T,    DE_Z,   DE_U,      DE_I,    DE_O,    DE_P,    KC_BSPC,
-	ESC_NAV, DE_A,    DE_S,    DE_D,      DE_F,      DE_G,    DE_H,   DE_J,      DE_K,    DE_L,    DE_SCLN, DE_QUOT,
-	KC_LSFT, DE_Y,    DE_X,    DE_C,      DE_V,      DE_B,    DE_N,   DE_M,      DE_COMM, DE_DOT,  DE_SLSH, ENT_RSF,
-	KC_LCTL, KC_LGUI, KC_LALT, MO(MOUSE), MO(DE_L1), KC_SPC,  KC_SPC, MO(DE_R1), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,  DE_T,   DE_Z,   DE_U,  DE_I,    DE_O,    DE_P,    KC_BSPC,
+	ESC_NAV, DE_A,    DE_S,    DE_D,    DE_F,  DE_G,   DE_H,   DE_J,  DE_K,    DE_L,    DE_SCLN, DE_QUOT,
+	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,  DE_B,   DE_N,   DE_M,  DE_COMM, DE_DOT,  DE_SLSH, SFTENT,
+	KC_LCTL, KC_LGUI, KC_LALT, MO_MOUS, MO_L1, KC_SPC, KC_SPC, MO_R1, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 /* Symbols
@@ -106,32 +100,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |Reset |      |MUSmod|Aud on|Audoff| GAME |      |      | HUE- | SAT- |BRGTH-|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|TermOn|TermOf| PrtSc| Pause|      |
+ * |CapsLk|Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      | PrtSc| Pause|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |  <>  |             |  <>  |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
 [ADJUST] = LAYOUT_planck_grid(
 	_______, _______, DEBUG,   VERSION, MUSIC,   _______, RGB_TOG, RGB_MOD, RGB_HUI,  RGB_SAI, RGB_VAI, KC_INS,
 	RESET,   _______, MU_MOD,  AU_ON,   AU_OFF,  DF_GAME, _______, _______, RGB_HUD,  RGB_SAD, RGB_VAD, _______,
-	_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, KC_PSCR, KC_PAUS, _______,
+	KC_CAPS, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  KC_PSCR, KC_PAUS, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______, _______
 ),
 
-/* Nav layer
+/* Nav/edit layer (F13-F15 can be used to configure hotkeys)
  * ,-----------------------------------------------------------------------------------.
- * |      |      |      |      |      |      |      | Home |  Up  |  End | PgUp |      |
+ * |      |  F13 |  F14 |  F15 |      |      |      | Home |  Up  |  End | PgUp |(Bspc)|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  <>  |  Alt | Shift| Ctrl |  <>  |      |      | Left | Down | Right| PgDn |      |
+ * |  <>  |  Alt | Shift| Ctrl |      |      |      | Left | Down | Right| PgDn | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |  Cut | Copy | Paste|MARKLN|      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
 [NAV] = LAYOUT_planck_grid(
-	_______, _______, _______, _______, _______, _______, _______, KC_HOME,   KC_UP,   KC_END,   KC_PGUP, _______,
-	_______, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, KC_LEFT,   KC_DOWN, KC_RGHT,  KC_PGDN, _______,
-	_______, _______, _______, _______, _______, _______, _______, C(DE_X),   C(DE_C), C(DE_V),  MARK_LN, _______,
-	_______, _______, _______, _______, _______, _______, _______, _______,   _______, _______,  _______, _______
+	_______, KC_F13,  KC_F14,  KC_F15,  _______, _______, _______, KC_HOME, KC_UP,   KC_END,   KC_PGUP, _______,
+	_______, KC_LALT, KC_LSFT, KC_LCTL, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT,  KC_PGDN, KC_DEL,
+	_______, _______, _______, _______, _______, _______, _______, C(DE_X), C(DE_C), C(DE_V),  MARK_LN, _______,
+	_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______
 ),
 
 /* Mousekeys layer
@@ -142,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      | Spd0 | Spd1 | Spd2 |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
+ * |      |      |      |  <>  |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'*/
 [MOUSE] = LAYOUT_planck_grid(
 	_______, _______, _______, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______,
@@ -157,14 +151,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |   '  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |EntRSf|
+ * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |SftEnt|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl | Win  | Alt  | XXX  |Number|    Space    | XXX  |   /  | Left | Down |Right |
  * `-----------------------------------------------------------------------------------' */
 [DE_GAME] = LAYOUT_planck_grid(
 	KC_TAB,  DE_Q,    DE_W,    DE_E,    DE_R,  DE_T,   DE_Z,   DE_U,    DE_I,    DE_O,    DE_P,    KC_BSPC,
 	KC_ESC,  DE_A,    DE_S,    DE_D,    DE_F,  DE_G,   DE_H,   DE_J,    DE_K,    DE_L,    DE_SCLN, DE_QUOT,
-	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,  DE_B,   DE_N,   DE_M,    DE_COMM, DE_DOT,  KC_UP,   ENT_RSF,
+	KC_LSFT, DE_Y,    DE_X,    DE_C,    DE_V,  DE_B,   DE_N,   DE_M,    DE_COMM, DE_DOT,  KC_UP,   SFTENT,
 	KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, G_NUM, KC_SPC, KC_SPC, XXXXXXX, DE_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
@@ -247,9 +241,11 @@ void matrix_scan_user(void) {
 
 bool music_mask_user(uint16_t keycode) {
 	switch (keycode) {
-	case MO(DE_L1):
-	case MO(DE_R1):
-		return false;
+	// TODO Uncommenting these lines causes the keyboard to crash on startup. Absolutely no clue why though.
+	// case MO_L1:
+	// case MO_R1:
+	// case MO_MOUS:
+	// 	return false;
 	default:
 		return true;
 	}
