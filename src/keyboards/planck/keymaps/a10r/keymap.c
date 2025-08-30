@@ -79,18 +79,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* F-keys + Numpad layer
  * ,-----------------------------------------------------------------------------------.
- * |  ´   |  F1  |  F2  |  F3  |  F4  |      |   +  |   7  |   8  |   9  |   *  | Bspc |
+ * |  ´   |  F1  |  F2  |  F3  |  F4  |NmLock|   +  |   7  |   8  |   9  |   *  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |      |   =  |   4  |   5  |   6  |   0  |  \   |
+ * |      |  F5  |  F6  |  F7  |  F8  | Kp . |   =  |   4  |   5  |   6  |   0  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F9  |  F10 |  F11 |  F12 |      |   -  |   1  |   2  |   3  |   /  |      |
+ * |      |  F9  |  F10 |  F11 |  F12 | Kp , |   -  |   1  |   2  |   3  |   /  | KpEnt|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |  <>  | Mute | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'*/
 [DE_R1] = LAYOUT_planck_grid(
-	DE_ACUT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, DE_PLUS, DE_7,    DE_8,    DE_9,    DE_ASTR, KC_BSPC,
-	_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, DE_EQL,  DE_4,    DE_5,    DE_6,    DE_0,    DE_BSLS,
-	_______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, DE_MINS, DE_1,    DE_2,    DE_3,    DE_SLSH, _______,
+	DE_ACUT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_NLCK, KC_PPLS, KC_KP_7, KC_KP_8, KC_KP_9, KC_PAST, KC_BSPC,
+	_______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_PDOT, KC_PEQL, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_0, DE_BSLS,
+	_______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PCMM, KC_PMNS, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_PENT,
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
 ),
 
@@ -187,8 +187,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 __attribute__((weak)) void play_next_song(void);
 
+bool force_numlock_on = true;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
+	case KC_NUMLOCK:
+		// if NumLock is manually pressed, we don't need to force it on anymore
+		force_numlock_on = false;
+		return true;
 	case MUSIC:
 		if (record->event.pressed) {
 			play_next_song();
@@ -221,6 +227,13 @@ uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
 void matrix_scan_user(void) {
+	if (force_numlock_on) {
+		led_t led_state = host_keyboard_led_state();
+		if (!led_state.num_lock) {
+			tap_code(KC_NUMLOCK);
+		}
+	}
+
 	if (muse_mode) {
 		if (muse_counter == 0) {
 			uint8_t muse_note = muse_offset + SCALE[muse_clock_pulse()];
@@ -292,14 +305,12 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 	return state;
 }
 
-void startup_user()
-{
+void startup_user() {
 	wait_ms(20); // gets rid of tick
 	PLAY_SONG(startup_sound);
 }
 
-void shutdown_user()
-{
+void shutdown_user() {
 	PLAY_SONG(goodbye_sound);
 	wait_ms(150);
 	stop_all_notes();
