@@ -66,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |  Del |   ä  |   ß  |   ö  |   ü  |   "  |   =  |   (  |   )  |   _  |   ^  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |   <  |   >  |   €  |   -  |   [  |   ]  |   :  |   ?  |      |
+ * |      |      |   ´  |   <  |   >  |   €  |   -  |   [  |   ]  |   :  |   ?  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |  <>  |             |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------' */
 [DE_L1] = LAYOUT_planck_grid(
 	DE_TILD, DE_EXLM, DE_AT,   DE_HASH, DE_DLR,  DE_PERC, DE_PLUS, DE_LCBR, DE_RCBR, DE_AMPR, DE_ASTR, KC_BSPC,
 	KC_DEL,  DE_ADIA, DE_SS,   DE_ODIA, DE_UDIA, DE_DQUO, DE_EQL,  DE_LPRN, DE_RPRN, DE_UNDS, DE_CIRC, DE_PIPE,
-	_______, _______, _______, DE_LABK, DE_RABK, DE_EURO, DE_MINS, DE_LBRC, DE_RBRC, DE_COLN, DE_QUES, _______,
+	_______, _______, DE_ACUT, DE_LABK, DE_RABK, DE_EURO, DE_MINS, DE_LBRC, DE_RBRC, DE_COLN, DE_QUES, _______,
 	_______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
 ),
 
